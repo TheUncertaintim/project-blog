@@ -7,6 +7,14 @@ import { loadBlogPost } from "@/helpers/file-helpers";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { BLOG_TITLE } from "@/constants";
 import CodeSnippet from "@/components/CodeSnippet";
+import Spinner from "@/components/Spinner";
+import dynamic from "next/dynamic";
+
+// load this component only when it's needed it the post
+const DivisionGroupsDemo = dynamic(
+  () => import("@/components/DivisionGroupsDemo"),
+  { loading: Spinner }
+);
 
 export async function generateMetadata({ params }) {
   const { postSlug } = await params;
@@ -29,7 +37,10 @@ async function BlogPost({ params }) {
         publishedOn={frontmatter.publishedOn}
       />
       <div className={styles.page}>
-        <MDXRemote source={content} components={{ CodeSnippet }} />
+        <MDXRemote
+          source={content}
+          components={{ CodeSnippet, DivisionGroupsDemo }}
+        />
       </div>
     </article>
   );
