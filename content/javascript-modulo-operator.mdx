@@ -1,18 +1,18 @@
 ---
-title: 'Understanding the JavaScript Modulo Operator'
+title: "Understanding the JavaScript Modulo Operator"
 abstract: One of the most commonly-misunderstood operators is Modulo (%). In this tutorial, we'll unpack exactly what this little bugger does, and learn how it can help us solve practical problems.
-publishedOn: '2023-09-06T12:00:00-0400'
+publishedOn: "2023-09-06T12:00:00-0400"
 ---
 
 When I was first learning to code, I remember finding the Modulo operator (%) _extremely_ confusing. 😬
 
 If you don't understand what it's doing, the values it produces seem completely random:
 
-```js
-const what = 10 % 4; // 2
-const the = 10 % 10; // 0
-const heck = 4 % 10; // 4
-```
+<CodeSnippet lang="js">
+  {`const what = 10 % 4; // 2 
+const the = 10 % 10; // 0 
+const heck = 4 % 10; //4`}
+</CodeSnippet>
 
 In this blog post, we're going to learn how this operator works by refining our mental model for division. We'll also cover a practical, every-day use case for this curious fella.
 
@@ -20,9 +20,7 @@ In this blog post, we're going to learn how this operator works by refining our 
 
 Suppose we have the following bit of arithmetic:
 
-```js
-12 ÷ 4
-```
+<CodeSnippet lang="js">{`12 ÷ 4`}</CodeSnippet>
 
 Division can often feel pretty abstract or theoretical, but there's a practical way to think about it: we want to divide a number into equally-sized groups.
 
@@ -38,9 +36,7 @@ In the example widget above, our dividend (the number to be divided) is 12. 12 i
 
 Suppose we had the following equation instead:
 
-```js
-11 ÷ 4
-```
+<CodeSnippet lang="js">{`11 ÷ 4`}</CodeSnippet>
 
 This equation evaluates to `2.75`. Each group has 2 complete items, and then ¾ths of another item.
 
@@ -56,15 +52,11 @@ In that case, we'd be able to fit 2 items into each group, and we'd be left with
 
 In cases where the number can be equally divided into groups (eg. `12 ÷ 4`), there is nothing left over:
 
-```js
-12 % 4; // 0
-```
+<CodeSnippet lang="js">{`12 % 4; // 0`}</CodeSnippet>
 
 In situations where the dividend (the number to be divided) _can't_ be split equally into groups, the modulo operator lets us know how much is left over:
 
-```js
-11 % 4; // 3
-```
+<CodeSnippet lang="js">{`11 % 4; // 3`}</CodeSnippet>
 
 ## A real-world use case
 
@@ -82,8 +74,8 @@ This is a surprisingly tricky problem. Suppose we have a variable called `timeEl
 
 Essentially, we need to write a function that produces the following results:
 
-```js
-const COLORS = ['red', 'yellow', 'blue'];
+<CodeSnippet lang="js">
+{`const COLORS = ["red", "yellow", "blue"];
 
 getColor({ timeElapsed: 0 }); // 'red'
 getColor({ timeElapsed: 1 }); // 'yellow'
@@ -94,27 +86,29 @@ getColor({ timeElapsed: 5 }); // 'blue'
 getColor({ timeElapsed: 6 }); // 'red'
 getColor({ timeElapsed: 7 }); // 'yellow'
 getColor({ timeElapsed: 8 }); // 'blue'
-// ...And so on, forever
-```
+// ...And so on, forever`}
+
+</CodeSnippet>
 
 Let's look at how the modulo operator can help us solve this problem:
 
-```js
-const COLORS = ['red', 'yellow', 'blue'];
+<CodeSnippet lang="js">
+{`const COLORS = ["red", "yellow", "blue"];
 
 function getColor({ timeElapsed }) {
   const colorIndex = timeElapsed % COLORS.length;
-
   return COLORS[colorIndex];
-}
-```
+}`}
+
+</CodeSnippet>
 
 Miraculously, this does exactly what we need! This method will always return one of the 3 colors, as long as `timeElapsed` is an integer. And it'll cycle through the 3 colors as `timeElapsed` increases.
 
 `COLORS.length` is equal to `3`, since there are 3 colors in our array. And so, as `timeElapsed` increments from 0 to 8, this function winds up performing the following sequence of calculations:
 
-```js
-const colorIndex = 0 % 3; // 0
+<CodeSnippet lang="js">
+{
+`const colorIndex = 0 % 3; // 0
 const colorIndex = 1 % 3; // 1
 const colorIndex = 2 % 3; // 2
 const colorIndex = 3 % 3; // 0
@@ -122,8 +116,10 @@ const colorIndex = 4 % 3; // 1
 const colorIndex = 5 % 3; // 2
 const colorIndex = 6 % 3; // 0
 const colorIndex = 7 % 3; // 1
-const colorIndex = 8 % 3; // 2
-```
+const colorIndex = 8 % 3; // 2`
+}
+
+</CodeSnippet>
 
 We can then use this `colorIndex` to look up the color from the `COLORS` array. It's guaranteed to always cycle within the range of available indexes for that array.
 

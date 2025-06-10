@@ -1,16 +1,14 @@
-import React from 'react';
-import { Code } from 'bright';
+import React from "react";
+import { Code } from "bright";
 
-import theme from './theme';
-import styles from './CodeSnippet.module.css';
+import theme from "./theme";
+import styles from "./CodeSnippet.module.css";
 
-function CodeSnippet(props) {
+function CodeSnippet({ children, ...delegated }) {
   return (
-    <Code
-      {...props}
-      theme={theme}
-      className={styles.wrapper}
-    />
+    <Code {...delegated} theme={theme} className={styles.wrapper}>
+      {children}
+    </Code>
   );
 }
 
